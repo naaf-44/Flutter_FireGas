@@ -240,7 +240,9 @@ class dashBoardScreenState extends State<dashBoardScreen> {
       }
     });
     return WillPopScope(
-      onWillPop: () => onBackPressed(context),
+      onWillPop: () {
+        exit(0);
+      },
       child: Scaffold(
         appBar: AppBar(
           title: Text("Dashboard"),
@@ -610,6 +612,8 @@ class dashBoardScreenState extends State<dashBoardScreen> {
   }
 
   onBackPressed(BuildContext context) {
+    exit(0);
+    /*
     return showDialog(
           barrierDismissible: false,
           context: context,
@@ -631,7 +635,7 @@ class dashBoardScreenState extends State<dashBoardScreen> {
                         // ignore: deprecated_member_use
                         child: RaisedButton(
                           color: themeColor,
-                          onPressed: () => Navigator.of(context).pop(false),
+                          onPressed: () => Navigator.pop(context),
                           child: Text(
                             "No",
                             textAlign: TextAlign.center,
@@ -646,7 +650,9 @@ class dashBoardScreenState extends State<dashBoardScreen> {
                         // ignore: deprecated_member_use
                         child: RaisedButton(
                           color: themeColor,
-                          onPressed: () => exit(0),
+                          onPressed: (){
+
+                          },
                           child: Text(
                             "Yes",
                             style: TextStyle(color: Colors.white),
@@ -660,7 +666,7 @@ class dashBoardScreenState extends State<dashBoardScreen> {
             ),
           ),
         ) ??
-        false;
+        false;*/
   }
 
   nextScreen(int newIndex, BuildContext context) {
