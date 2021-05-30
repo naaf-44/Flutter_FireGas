@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'dashBoardScreen.dart';
 import 'databaseHelper.dart';
 import 'loginScreen.dart';
@@ -35,7 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (isDatabaseChecked == false) {
-        checkDatabase(context);
+        Future.delayed(Duration(seconds: 2), () {
+          checkDatabase();
+        });
+
         isDatabaseChecked = true;
       }
     });
@@ -66,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> checkDatabase(BuildContext mainContext) async {
+  Future<void> checkDatabase() async {
     int userCount = await dh.userRowCount();
     if (userCount > 0) {
       final allRows = await dh.getUserData();
@@ -105,16 +110,19 @@ class _MyHomePageState extends State<MyHomePage> {
       print(user);
 
       Navigator.push(
-        mainContext,
+        context,
         MaterialPageRoute(
-            builder: (context) => dashBoardScreen(
-                  user: user,
-                )),
+          builder: (context) => dashBoardScreen(
+            user: user,
+          ),
+        ),
       );
     } else {
       Navigator.push(
-        mainContext,
-        MaterialPageRoute(builder: (context) => loginScreen()),
+        context,
+        MaterialPageRoute(
+          builder: (context) => loginScreen(),
+        ),
       );
     }
   }
